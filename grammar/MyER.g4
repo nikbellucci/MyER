@@ -1,4 +1,0 @@
-grammar MyER;
-
-/****** Parser grammar ******/
-

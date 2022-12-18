@@ -1,0 +1,74 @@
+ENTITY PuntoVendita {
+    Nome: string PK,
+    Indirizzo {
+        Via: string,
+        Citta: string,
+        Cap: string[5]
+    },
+    NumeroTe: integer,
+    Recapito: string [0-N]
+}
+
+ENTITY SalaTe (Composizione PK) {
+    Numero: integer PK,
+    Foto: string [0-1],
+    Superficie: float,
+    NumeroSedie: integer
+}
+
+RELATION Adiacenza (SalaTe [0-N]*)
+RELATION Composizione (PuntoVendita [0-N], SalaTe PK)
+
+ENTITY Marca {
+    Codice: integer PK,
+    Descrizione: string [0-1],
+    Sede: string
+} SPECIALIZED BY TeVerde, TeNero
+
+RELATION Commercio (PuntoVendita [1-N], Marca [1-N])
+
+ENTITY TeVerde SPECIALIZES Marca {
+    Descrizione: string
+}
+
+ENTITY TeNero SPECIALIZES Marca {
+    Teina: boolean
+}
+
+ENTITY Cliente {
+    CF: string[14] PK,
+    Nome: string,
+    Cognome: string,
+    AnnoNascita: integer,
+    LuogoNascita: string
+}
+
+ENTITY Prenotazione (Riferimento_1 PK, Riferimento_2 PK) {
+    Data: date PK,
+    Codice: string
+}
+
+RELATION Riferimento_1 (Cliente [0-N], Prenotazione PK)
+RELATION Riferimento_2 (SalaTe [0-N], Prenotazione PK)
+
+ENTITY Esperto EXTENDS Cliente {
+    CV: string
+}
+
+ENTITY Premium EXTENDS Cliente {
+    Punti: integer,
+    Tessera: string
+}
+
+ENTITY Domanda (Inserimento PK) {
+    Data: date PK,
+    Testo: string
+}
+
+RELATION Inserimento (Domanda PK, Esperto [0-N], Premium [0-N])
+
+RELATION Segnalazione (Esperto [0-N], Marca [0-N]) {
+    Data: date,
+    Voto: integer,
+    Testo: string
+}
