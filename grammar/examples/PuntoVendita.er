@@ -1,0 +1,18 @@
+ENTITY PuntoVendita {
+    Nome: string PK,
+    Indirizzo {
+        Via: string,
+        Città: string,
+        Cap: string[5]
+    }
+    NumeroTè: integer,
+    Recapito: string [0-N]
+}
+
+ENTITY SalaTè (Composizione [1-1] PK) {
+    Numero: integer PK,
+    Foto: string [0-1],
+}
+
+RELATION Adiacenza (SalaTè [0-N]) {}
+RELATION Composizione (PuntoVendita [0-N], SalaTè [1-1] PK) {}
