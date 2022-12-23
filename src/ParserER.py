@@ -1,5 +1,5 @@
-from antlr4 import *
 from types import SimpleNamespace
+from antlr4 import *
 from grammar.myERLexer import myERLexer
 from grammar.myERParser import myERParser
 from grammar.myERListener import myERListener
@@ -79,6 +79,7 @@ class Node:
 # on the way
 class ExtractorListener(myERListener):
     def __init__(self, output: SimpleNamespace, parser: myERParser):
+        self.tokens_path = './src/grammar/myER.tokens'
         # `output` is a simple object needed to pass the output up to the caller
         self.output = output
         self.current = None  # current pointed node in the newly-generated tree
@@ -93,7 +94,7 @@ class ExtractorListener(myERListener):
         # ...
         # so we need to "parse" that file and use its content to build a dict
         self.tokenNames = {}
-        with open('grammar/myER.tokens', 'r') as tokens:
+        with open(self.tokens_path, 'r') as tokens:
             while True:
                 line = tokens.readline().strip()
                 if not line:
@@ -125,7 +126,7 @@ class ExtractorListener(myERListener):
 # This is the actual function which shall be called from outside
 # It accepts a file path as an argument (the QASM source file)
 # and it returns our simplified parsing tree
-class Parser:
+class ParserER:
     @staticmethod
     def buildParseTree(filePath: str):
         file = FileStream(filePath, encoding='utf-8')
