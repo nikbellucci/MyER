@@ -1,3 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+class Graph:
+    def __init__(self) -> None:
+        pass

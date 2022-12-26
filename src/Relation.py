@@ -7,13 +7,12 @@ class Relation:
         self.primaryKey = []
         self.entitySpecifications = {}
         self.recursive = False
-        self.identifier = node.getChildByType('Identifier').text
         if node.getChildByType('attributeBlock') is not None:
             attributeDeclarationNodes = node.getChildByType('attributeBlock').getChildByType('attributeDeclarationList').getDescendantsByType('attributeDeclaration')
             for attributeDeclarationNode in attributeDeclarationNodes:
-                self.identifier = attributeDeclarationNode.getChildByType('Identifier').text
+                attributeIdentifier = attributeDeclarationNode.getChildByType('Identifier').text
                 attribute = Attribute(attributeDeclarationNode)
-                self.attributes[self.identifier] = attribute
+                self.attributes[attributeIdentifier] = attribute
                 if attribute.isPk():
                     self.primaryKey.append(attribute)
                     
@@ -23,9 +22,9 @@ class Relation:
                 isRecursive = node.getChildByType('entitySpecificationList').getChildByType('REC')
                 if isRecursive is not None:
                     self.recursive = True
-                identifier = entitySpecificationNode.getChildByType('Identifier').text
+                entityIdentifier = entitySpecificationNode.getChildByType('Identifier').text
                 specification = Specificatiion(entitySpecificationNode)
-                self.entitySpecifications[identifier] = specification
+                self.entitySpecifications[entityIdentifier] = specification
                 if specification.isPk():
                     self.primaryKey.append(specification)
         
@@ -35,20 +34,20 @@ class Relation:
         else:
             return False
         
-    def getAttributes(self):
+    def getAttributes(self) -> dict:
         return self.attributes
     
-    def getPrimarykey(self):
+    def getPrimarykey(self) -> list:
         return self.primaryKey
     
-    def getEntitySpecifications(self):
+    def getEntitySpecifications(self) -> dict:
         return self.entitySpecifications
               
 class Specificatiion:
     def __init__(self, node: Node) -> None:
-        self.entityName = node.getChildByType('Identifier')
-        self.isPK = node.getChildByType('primaryKey')
-        self.multiplicity = node.getChildByType('multiplicity')
+        self.entityName = node.getChildByType('Identifier').text
+        self.isPK = node.getChildByType('primaryKey').text if node.getChildByType('primaryKey') is not None else None
+        self.multiplicity = node.getChildByType('multiplicity').text if node.getChildByType('multiplicity') is not None else None
     
     def getEntityName(self):
         return self.entityName

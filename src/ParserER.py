@@ -124,7 +124,7 @@ class ExtractorListener(myERListener):
 
 
 # This is the actual function which shall be called from outside
-# It accepts a file path as an argument (the QASM source file)
+# It accepts a file path as an argument (the ER source file)
 # and it returns our simplified parsing tree
 class ParserER:
     @staticmethod
