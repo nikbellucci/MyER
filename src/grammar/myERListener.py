@@ -1,4 +1,4 @@
-# Generated from myER.g4 by ANTLR 4.11.1
+# Generated from src/grammar/myER.g4 by ANTLR 4.11.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .myERParser import myERParser
@@ -86,6 +86,15 @@ class myERListener(ParseTreeListener):
 
     # Exit a parse tree produced by myERParser#type.
     def exitType(self, ctx:myERParser.TypeContext):
+        pass
+
+
+    # Enter a parse tree produced by myERParser#dataByte.
+    def enterDataByte(self, ctx:myERParser.DataByteContext):
+        pass
+
+    # Exit a parse tree produced by myERParser#dataByte.
+    def exitDataByte(self, ctx:myERParser.DataByteContext):
         pass
 
 

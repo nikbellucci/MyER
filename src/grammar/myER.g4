@@ -38,11 +38,17 @@ identifierList
 
 type
     : 'string'
-    | 'string' LBRACKET Integer RBRACKET
+    | 'string' LBRACKET dataByte RBRACKET
     | 'integer'
+    | 'integer' LBRACKET dataByte RBRACKET
     | 'boolean'
     | 'date'
     | 'float'
+    | 'float' LBRACKET dataByte RBRACKET
+    ;
+
+dataByte
+    : Integer
     ;
 
 attributeDeclaration
