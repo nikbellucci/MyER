@@ -3,6 +3,8 @@ from antlr4 import *
 from grammar.myERLexer import myERLexer
 from grammar.myERParser import myERParser
 from grammar.myERListener import myERListener
+from pathlib import Path
+import os
 
 
 class Node:
@@ -79,7 +81,8 @@ class Node:
 # on the way
 class ExtractorListener(myERListener):
     def __init__(self, output: SimpleNamespace, parser: myERParser):
-        self.tokens_path = './src/grammar/myER.tokens'
+        # self.tokens_path = Path("./grammar/myER.tokens")
+        self.tokens_path = os.getcwd() + "/grammar/myER.tokens"
         # `output` is a simple object needed to pass the output up to the caller
         self.output = output
         self.current = None  # current pointed node in the newly-generated tree

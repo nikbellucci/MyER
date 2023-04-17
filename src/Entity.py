@@ -39,6 +39,9 @@ class Entity:
         else:
             return None
     
+    def getIdentifier(self):
+        return self.identifier
+    
 class Specificatiion:
     def __init__(self, node: Node) -> None:
         self.entityName = node.getChildByType('Identifier').text

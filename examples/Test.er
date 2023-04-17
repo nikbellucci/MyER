@@ -1,0 +1,10 @@
+ENTITY PuntoVendita {
+    Nome: string[3] PK,
+    Indirizzo {
+        Via: string,
+        Citta: string,
+        Cap: string[5]
+    },
+    NumeroTe: integer,
+    Recapito: string [0-N]
+}
